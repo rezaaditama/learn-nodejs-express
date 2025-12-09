@@ -3,6 +3,8 @@ import pino from 'pino';
 import { pinoHttp } from 'pino-http';
 import cors from 'cors';
 import router from '@/routes/index';
+import { notFoundHandler } from './errors/notFound';
+import { errorHandler } from './errors/errorHandler';
 
 const app: Application = express();
 
@@ -36,5 +38,11 @@ app.use(
 
 // Test
 app.use('/api', router);
+
+// Error Route
+app.use(notFoundHandler);
+
+// Global Error Handler
+app.use(errorHandler);
 
 export default app;
